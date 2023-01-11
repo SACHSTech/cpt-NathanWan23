@@ -8,8 +8,8 @@ public class DataCollection {
 
     }
 
-    public void addCountry(){
-        
+    public void addCountry(Country country){
+                
     }
 
 }
