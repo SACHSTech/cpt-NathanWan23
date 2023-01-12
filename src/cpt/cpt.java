@@ -13,9 +13,6 @@ import javafx.stage.Stage;
 
 public class cpt extends Application{
     
-
-
- 
 /**
  * A chart that displays rectangular bars with heights indicating data values
  * for categories. Used for displaying information when at least one axis has
@@ -29,12 +26,17 @@ public class cpt extends Application{
  
     public Parent createContent() {
         String[] years = {"2007", "2008", "2009"};
+        int[] data = {567, 1292, 1292};
         xAxis = new CategoryAxis();
         xAxis.setCategories(FXCollections.<String>observableArrayList(years));
         yAxis = new NumberAxis("Units Sold", 0.0d, 3000.0d, 1000.0d);
         ObservableList<BarChart.Series> barChartData =
             FXCollections.observableArrayList(
               new BarChart.Series("Apples", FXCollections.observableArrayList(
+                /*for (int i = 0; i<2; i++){
+                    new BarChart.Data(years[i], data[i]),
+                }
+                new BarChart.Data(years[2], data[2]))),*/
                 new BarChart.Data(years[0], 567d),
                 new BarChart.Data(years[1], 1292d),
                 new BarChart.Data(years[2], 1292d))),
