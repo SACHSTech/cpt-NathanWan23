@@ -16,4 +16,8 @@ public class Country {
         return name;
     }
 
+    public int getYear(){
+        return year;
+    }
+
 }
