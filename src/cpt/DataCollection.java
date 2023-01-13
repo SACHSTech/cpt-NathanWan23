@@ -35,7 +35,10 @@ public class DataCollection{
         //countryList.add(country);
     }
 
-    
+    public Country[] deleteCountry(Country country){
+
+        
+    }
 
 
 }

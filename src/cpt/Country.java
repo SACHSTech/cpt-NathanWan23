@@ -7,6 +7,9 @@ public class Country {
     private int alcConsumption;
 
     public Country(String countryName, int countryYear, int countryAlcConsum){
+        this.name = countryName;
+        this.year = countryYear;
+        this.alcConsumption = countryAlcConsum;
         
     }
 
