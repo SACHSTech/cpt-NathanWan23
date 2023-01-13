@@ -10,7 +10,10 @@ public class Country {
         this.name = countryName;
         this.year = countryYear;
         this.alcConsumption = countryAlcConsum;
-        
+    }
+
+    public String getName(){
+        return name;
     }
 
 }
