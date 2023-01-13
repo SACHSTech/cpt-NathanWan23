@@ -20,4 +20,7 @@ public class Country {
         return year;
     }
 
+    public int getAlcConsumption(){
+        return alcConsumption;
+    }
 }
