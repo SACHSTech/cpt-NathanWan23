@@ -9,7 +9,6 @@ import java.util.*;
 public class DataCollection{
     
     private ArrayList <Country> countryList = new ArrayList <Country>();
-
     
     static StringTokenizer st;
     
@@ -32,11 +31,23 @@ public class DataCollection{
     
         Br.close();
 
-        //countryList.add(country);
     }
 
-    public Country[] deleteCountry(Country country){
+    public ArrayList<Country> deleteCountry(ArrayList<Country> country){
 
+        ArrayList <Country> customList = new ArrayList <Country>();
+        int counter = country.size();
+        customList = countryList; 
+
+        while(country.size() > 0){
+            if(country.get(0) == customList.get(counter)){
+                customList.remove(counter);
+                counter--;
+                country.remove(0);   
+            } else counter++;
+        }
+        
+        return customList;
         
     }
 
