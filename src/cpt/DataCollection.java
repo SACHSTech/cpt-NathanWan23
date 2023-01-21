@@ -58,7 +58,7 @@ public class DataCollection{
 
     }*/
 
-    public ArrayList<Country> deleteCountry(ArrayList<Country> country){
+    /*public ArrayList<Country> deleteCountry(ArrayList<Country> country){
 
         ArrayList <Country> customList = new ArrayList <Country>();
         int counter = country.size();
@@ -70,6 +70,18 @@ public class DataCollection{
                 counter--;
                 country.remove(0);   
             } else counter++;
+        }
+        
+        return customList;
+        
+    } */
+
+    public ArrayList<Country> addCountry(int year){
+
+        ArrayList <Country> customList = new ArrayList <Country>();
+
+        for(int i = 0; i < countryList.size();i++){
+            if(countryList.get(i).getYear() == year) customList.add(countryList.get(i));
         }
         
         return customList;
