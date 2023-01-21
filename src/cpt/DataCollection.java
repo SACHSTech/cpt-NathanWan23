@@ -8,14 +8,38 @@ import java.util.*;
 
 public class DataCollection{
     
-    private ArrayList <Country> countryList = new ArrayList <Country>();
+    static ArrayList <Country> countryList = new ArrayList <Country>();
     
     static StringTokenizer st;
     
-    public DataCollection(){
+    public void main(String[] args) throws IOException{
+    
+        DataCollection DataCollection = new DataCollection();
+         
+        for(int i = 0; i<countryList.size();i++){
+            System.out.println(countryList.get(i).getName());
+            System.out.println(countryList.get(i).getYear());
+            System.out.println(countryList.get(i).getAlcConsumption());
+        }
+        
+
     }
 
-    public void addCountry() throws IOException{
+    public DataCollection() throws IOException{
+        BufferedReader Br = new BufferedReader(new FileReader("total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv"));
+        String str = Br.readLine();
+
+        while(str != null) {
+            
+            String[] holder = str.split(",");
+            Country Country = new Country(holder[0], Integer.parseInt(holder[2]), Double.parseDouble(holder[3]));
+            countryList.add(Country);
+            str = Br.readLine();
+        }
+        Br.close();
+    }
+
+    /*public void addCountry() throws IOException{
         BufferedReader Br = new BufferedReader(new FileReader("total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv"));
         //StringTokenizer st;
         String str = Br.readLine();
@@ -24,14 +48,15 @@ public class DataCollection{
         while(str != null) {
             
             String[] holder = str.split(",");
-            Country Country = new Country(holder[0], Integer.parseInt(holder[1]), Integer.parseInt(holder[2]));
+            Country Country = new Country(holder[0], Integer.parseInt(holder[2]), Double.parseDouble(holder[3]));
             countryList.add(Country);
             str = Br.readLine();
         }
-    
+
+        System.out.println(countryList);
         Br.close();
 
-    }
+    }*/
 
     public ArrayList<Country> deleteCountry(ArrayList<Country> country){
 
