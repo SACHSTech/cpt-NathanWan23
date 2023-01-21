@@ -82,21 +82,25 @@ public class cpt extends Application{
         
         ArrayList<Country> test = DataCollection.getList();
 
-        listCountryName.countryName();
+        listCountryName = countryName(test);
 
         final ObservableList<String> categories =
-            FXCollections.<String>observableArrayList(Arrays.asList(years));
+            FXCollections.<String>observableArrayList(listCountryName);
         xAxis = new NumberAxis();
         yAxis = new CategoryAxis();
         chart = new BarChart<>(xAxis, yAxis);
-        chart.setTitle("Horizontal Bar Chart Example");
-        yAxis.setLabel("Year");
+        chart.setTitle("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age");
+        yAxis.setLabel("Country");
         yAxis.setCategories(categories);
-        xAxis.setLabel("Price");
+        xAxis.setLabel("Total Pure Alcohol Consumption per Person over 15 years of age");
  
         // add starting data
         XYChart.Series<Number, String> series1 = new XYChart.Series<>();
-        series1.setName("Data Series 1");
+        series1.setName("2000");
+        series1.getData().addAll(
+            for(int i = 0; i<)
+        )
+        /*series1.setName("Data Series 1");
         series1.getData().addAll(
                 new XYChart.Data<Number, String>(567, years[0]),
                 new XYChart.Data<Number, String>(1292, years[1]),
@@ -114,7 +118,7 @@ public class cpt extends Application{
         series3.getData().addAll(
                 new XYChart.Data<Number, String>(800, years[0]),
                 new XYChart.Data<Number, String>(1000, years[1]),
-                new XYChart.Data<Number, String>(2800, years[2]));
+                new XYChart.Data<Number, String>(2800, years[2])); */
  
         chart.getData().add(series1);
         chart.getData().add(series2);
