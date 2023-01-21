@@ -76,7 +76,8 @@ public class cpt extends Application{
     private CategoryAxis yAxis;
  
     public Parent createContent() {
-        final String[] years = {"2007", "2008", "2009"};
+        //final String[] years = {"2007", "2008", "2009"};
+        
         final ObservableList<String> categories =
             FXCollections.<String>observableArrayList(Arrays.asList(years));
         xAxis = new NumberAxis();

@@ -96,5 +96,15 @@ public class DataCollection{
         
     }
 
+    public static ArrayList<String> countryName(){
+        
+        ArrayList <String> customList = new ArrayList <String>();
+
+        for(int i = 0; i < countryList.size();i++) customList.add(countryList.get(i).getName());
+        
+        return customList;
+
+    }
+
 
 }
