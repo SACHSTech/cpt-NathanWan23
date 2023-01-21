@@ -4,9 +4,9 @@ public class Country {
     
     private String name;
     private int year;
-    private int alcConsumption;
+    private double alcConsumption;
 
-    public Country(String countryName, int countryYear, int countryAlcConsum){
+    public Country(String countryName, int countryYear, double countryAlcConsum){
         this.name = countryName;
         this.year = countryYear;
         this.alcConsumption = countryAlcConsum;
@@ -20,7 +20,7 @@ public class Country {
         return year;
     }
 
-    public int getAlcConsumption(){
+    public double getAlcConsumption(){
         return alcConsumption;
     }
 }
