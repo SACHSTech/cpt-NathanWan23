@@ -8,11 +8,11 @@ import java.util.*;
 
 public class DataCollection{
     
-    static ArrayList <Country> countryList = new ArrayList <Country>();
+    private static ArrayList <Country> countryList = new ArrayList <Country>();
     
-    static StringTokenizer st;
+    //static StringTokenizer st;
     
-    public static void main(String[] args) throws IOException{
+    public void main(String[] args) throws IOException{
     
         DataCollection DataCollection = new DataCollection();
          
@@ -30,6 +30,8 @@ public class DataCollection{
             System.out.println(List.get(i).getYear());
             System.out.println(List.get(i).getAlcConsumption());
         }
+
+        
 
     }
 
@@ -84,7 +86,7 @@ public class DataCollection{
         
     } */
 
-    public static ArrayList<Country> addCountry(int year){
+    public ArrayList<Country> addCountry(int year){
 
         ArrayList <Country> customList = new ArrayList <Country>();
 
@@ -104,6 +106,10 @@ public class DataCollection{
         
         return customList;
 
+    }
+
+    public static ArrayList<Country> getList(){
+        return countryList;
     }
 
 

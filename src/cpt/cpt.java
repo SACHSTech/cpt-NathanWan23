@@ -77,7 +77,13 @@ public class cpt extends Application{
  
     public Parent createContent() {
         //final String[] years = {"2007", "2008", "2009"};
+        DataCollection DataCollection = new DataCollection();
+        ArrayList<String> listCountryName = new ArrayList<String>();
         
+        ArrayList<Country> test = DataCollection.getList();
+
+        listCountryName.countryName();
+
         final ObservableList<String> categories =
             FXCollections.<String>observableArrayList(Arrays.asList(years));
         xAxis = new NumberAxis();
@@ -126,5 +132,15 @@ public class cpt extends Application{
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static ArrayList<String> countryName(ArrayList<Country> test){
+        
+        ArrayList <String> customList = new ArrayList <String>();
+
+        for(int i = 0; i < test.size();i++) customList.add((test).get(i).getName());
+        
+        return customList;
+
     }
 }
