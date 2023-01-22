@@ -75,16 +75,18 @@ public class cpt extends Application{
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
  
-    public Parent createContent() {
+    public Parent createContent() throws IOException{
         //final String[] years = {"2007", "2008", "2009"};
         DataCollection DataCollection = new DataCollection();
         ArrayList<String> listCountryName = new ArrayList<String>();
         
-        ArrayList<Country> year1 = yearlyData(2000);
-        
-        ArrayList<Country> test = DataCollection.getList();
+        ArrayList<Country> year1 = DataCollection.yearlyData(2000);
+        ArrayList<Country> year2 = DataCollection.yearlyData(2010);
+        ArrayList<Country> year3 = DataCollection.yearlyData(2015);
 
-        listCountryName = countryName(test);
+        //ArrayList<Country> test = DataCollection.getList();
+
+        listCountryName = DataCollection.countryName();
 
         final ObservableList<String> categories =
             FXCollections.<String>observableArrayList(listCountryName);
@@ -99,9 +101,28 @@ public class cpt extends Application{
         // add starting data
         XYChart.Series<Number, String> series1 = new XYChart.Series<>();
         series1.setName("2000");
-        series1.getData().addAll(
-            for(int i = 0; i<)
-        )
+            for(int i = 0; i<year1.size();i++){
+                series1.getData().add(
+                new XYChart.Data<Number, String>(year1.get(i).getAlcConsumption(), year1.get(i).getName()));                
+            }
+
+        XYChart.Series<Number, String> series2 = new XYChart.Series<>();
+        series2.setName("2010");
+            for(int i = 0; i<year2.size();i++){
+                series2.getData().add(
+            new XYChart.Data<Number, String>(year2.get(i).getAlcConsumption(), year2.get(i).getName()));
+                    
+                }
+
+        XYChart.Series<Number, String> series3 = new XYChart.Series<>();
+        series3.setName("2015");
+            for(int i = 0; i<year3.size();i++){
+                series3.getData().add(
+            new XYChart.Data<Number, String>(year3.get(i).getAlcConsumption(), year3.get(i).getName()));
+                    
+                }
+    
+        
         /*series1.setName("Data Series 1");
         series1.getData().addAll(
                 new XYChart.Data<Number, String>(567, years[0]),
@@ -128,7 +149,8 @@ public class cpt extends Application{
         return chart;
     }
  
-    @Override public void start(Stage primaryStage) throws Exception {
+    @Override
+    public void start(Stage primaryStage) throws IOException {
         primaryStage.setScene(new Scene(createContent()));
         primaryStage.show();
     }
@@ -136,11 +158,11 @@ public class cpt extends Application{
     /**
      * Java main for when running without JavaFX launcher
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         launch(args);
     }
 
-    public static ArrayList<String> countryName(ArrayList<Country> test){
+    /*public static ArrayList<String> countryName(ArrayList<Country> test){
         
         ArrayList <String> customList = new ArrayList <String>();
 
@@ -148,9 +170,9 @@ public class cpt extends Application{
         
         return customList;
 
-    }
+    }*/
 
-    public static ArrayList<Country> yearlyData(int year){
+    /*public static ArrayList<Country> yearlyData(int year){
 
         ArrayList <Country> customList = new ArrayList <Country>();
 
@@ -160,5 +182,5 @@ public class cpt extends Application{
         
         return customList;
         
-    }
+    }*/
 }
