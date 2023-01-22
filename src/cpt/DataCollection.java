@@ -12,24 +12,24 @@ public class DataCollection{
     
     //static StringTokenizer st;
     
-    public void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException{
     
         DataCollection DataCollection = new DataCollection();
          
-        /*for(int i = 0; i<countryList.size();i++){
+        for(int i = 0; i<countryList.size();i++){
             System.out.println(countryList.get(i).getName());
             System.out.println(countryList.get(i).getYear());
             System.out.println(countryList.get(i).getAlcConsumption());
-        }*/
+        }
 
-        ArrayList <Country> List = new ArrayList <Country>();
+        /*ArrayList <Country> List = new ArrayList <Country>();
         List = addCountry(2000);
 
         for(int i = 0; i<List.size();i++){
             System.out.println(List.get(i).getName());
             System.out.println(List.get(i).getYear());
             System.out.println(List.get(i).getAlcConsumption());
-        }
+        }*/
 
         
 
