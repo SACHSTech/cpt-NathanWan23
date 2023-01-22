@@ -86,7 +86,7 @@ public class DataCollection{
         
     } */
 
-    public ArrayList<Country> addCountry(int year){
+    public ArrayList<Country> yearlyData(int year){
 
         ArrayList <Country> customList = new ArrayList <Country>();
 

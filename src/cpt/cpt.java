@@ -80,6 +80,8 @@ public class cpt extends Application{
         DataCollection DataCollection = new DataCollection();
         ArrayList<String> listCountryName = new ArrayList<String>();
         
+        ArrayList<Country> year1 = yearlyData(2000);
+        
         ArrayList<Country> test = DataCollection.getList();
 
         listCountryName = countryName(test);
@@ -146,5 +148,17 @@ public class cpt extends Application{
         
         return customList;
 
+    }
+
+    public static ArrayList<Country> yearlyData(int year){
+
+        ArrayList <Country> customList = new ArrayList <Country>();
+
+        for(int i = 0; i < countryList.size();i++){
+            if(countryList.get(i).getYear() == year) customList.add(countryList.get(i));
+        }
+        
+        return customList;
+        
     }
 }
