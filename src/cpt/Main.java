@@ -121,6 +121,10 @@ public class Main extends Application{
         return chart;
     }
 
+    public Parent LineChartApp() throws IOException {
+        return chart;
+    }
+
     private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
         if(box1.isSelected()) chart.getData().add(series1);
