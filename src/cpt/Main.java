@@ -32,17 +32,23 @@ import javafx.stage.Stage;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
 
-//Imports for VBox
+//Imports for VBox and stacked layout
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
+import javafx.scene.layout.StackPane;
+
+//Imports for ChoiceBox
+import javafx.scene.control.ChoiceBox;
 
 
 public class Main extends Application{
     
     Stage window;
-    Scene scene;
+    Scene scene1;
+    Scene scene2;
     CheckBox CheckBox;    
     Button button;
+    ChoiceBox choiceBox;
   /*private BarChart chart;
   private CategoryAxis xAxis;
   private NumberAxis yAxis;*/
@@ -93,7 +99,8 @@ public class Main extends Application{
     private XYChart.Series<Number, String> series3 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series4 = new XYChart.Series<>();
     
-    public Parent createContent() throws IOException{
+    public Parent horizontalBarChartApp() throws IOException {
+    //public Parent createContent() throws IOException{
         DataCollection DataCollection = new DataCollection();
         ArrayList<String> listCountryName = new ArrayList<String>();
         
@@ -186,28 +193,54 @@ public class Main extends Application{
         if(box4.isSelected()) chart.getData().add(series4);
         else chart.getData().remove(series4);
     }
+
+    /*public void getChoice(ChoiceBox<String> choiceBox){
+        if(choiceBox.getValue() == "Horizontal Bar Chart") System.out.println(1);
+        if(choiceBox.getValue() == "Line Chart") System.out.println(2);
+    }*/
  
     @Override
     public void start(Stage primaryStage) throws IOException {
         window = primaryStage;
         //primaryStage.setScene(new Scene(createContent()));
         
-        //Button code
+        //Create CheckBox for year selection in graph 1
         CheckBox box1 = new CheckBox("2000");
         CheckBox box2 = new CheckBox("2010");
         CheckBox box3 = new CheckBox("2015");
         CheckBox box4 = new CheckBox("2018");
 
-        button = new Button("Enter");
-        button.setOnAction(e -> handleOptions(box1,box2,box3,box4));
+        //Create button for confirmation for CheckBoxes
+        Button checkButton = new Button("Enter");
+        checkButton.setOnAction(e -> handleOptions(box1,box2,box3,box4));
 
-        //Layout
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(box1, box2, box3, box4, button, createContent());
+        //ChoiceBox options 
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        choiceBox.getItems().add("Horizonal Bar Chart");
+        choiceBox.getItems().add("Line Chart");
 
-        scene = new Scene(layout, 600, 600);
-        window.setScene(scene);
+        //ChoiceBox button
+        Button choiceButton = new Button("Enter");
+
+        //Set default to graph 1
+        choiceBox.setValue("Horizontal Bar Chart");
+
+        if(choiceBox.getValue() == "Horizontal Bar Chart") choiceButton.setOnAction(e -> window.setScene(scene2));
+        if(choiceBox.getValue() == "Line Chart") choiceButton.setOnAction(e -> window.setScene(scene1));
+
+        //Layout 1
+        VBox layout1 = new VBox(10);
+        layout1.setPadding(new Insets(20,20,20,20));
+        layout1.getChildren().addAll(box1, box2, box3, box4, checkButton, horizontalBarChartApp(), choiceBox, choiceButton);
+        scene1 = new Scene(layout1, 600, 600);
+        
+        //Layout 2
+        StackPane layout2 = new StackPane();
+        layout2.setPadding(new Insets(20,20,20,20));
+        //layout2.getChildren().addAll(choiceBox, choiceButton);
+        scene2 = new Scene(layout2, 600, 600); 
+
+        window.setScene(scene1);
         window.show();
         //primaryStage.show();
     }
