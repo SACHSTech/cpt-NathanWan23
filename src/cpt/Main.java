@@ -88,14 +88,14 @@ public class Main extends Application{
 
         listCountryName = DataCollection.countryName();
 
-        final ObservableList<String> categories =
+        //final ObservableList<String> categories =
             FXCollections.<String>observableArrayList(listCountryName);
         xAxis = new NumberAxis();
         yAxis = new CategoryAxis();
         chart = new BarChart<>(xAxis, yAxis);
-        chart.setTitle("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age");
+        chart.setTitle("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)");
         yAxis.setLabel("Country");
-        yAxis.setCategories(categories);
+        //yAxis.setCategories(categories);
         xAxis.setLabel("Total Pure Alcohol Consumption per Person over 15 years of age");
  
         // add starting data
