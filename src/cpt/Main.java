@@ -208,17 +208,22 @@ public class Main extends Application{
         Button checkButton = new Button("Enter");
         checkButton.setOnAction(e -> handleOptions(box1,box2,box3,box4));
 
+        //Create buttons to switch scenes
+        Button buttonScene1 = new Button("Horizontal Bar Chart");
+        buttonScene1.setOnAction(e -> window.setScene(scene1));
+        Button buttonScene2 = new Button("Line Chart");
+        buttonScene2.setOnAction(e -> window.setScene(scene2));
 
         //Layout 1
         VBox layout1 = new VBox(10);
         layout1.setPadding(new Insets(20,20,20,20));
-        layout1.getChildren().addAll(box1, box2, box3, box4, checkButton, horizontalBarChartApp(), choiceBox1, choiceButton1);
+        layout1.getChildren().addAll(box1, box2, box3, box4, checkButton, horizontalBarChartApp(), buttonScene1, buttonScene2);
         scene1 = new Scene(layout1, 600, 600);
 
         //Layout 2
         StackPane layout2 = new StackPane();
         layout2.setPadding(new Insets(20,20,20,20));
-        layout2.getChildren().addAll(choiceBox2, choiceButton2);
+        layout2.getChildren().addAll(buttonScene1, buttonScene2);
         scene2 = new Scene(layout2, 600, 600); 
 
         if(hihi == 1){
