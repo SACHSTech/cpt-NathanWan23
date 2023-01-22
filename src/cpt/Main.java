@@ -214,7 +214,21 @@ public class Main extends Application{
         Button checkButton = new Button("Enter");
         checkButton.setOnAction(e -> handleOptions(box1,box2,box3,box4));
 
-        //ChoiceBox options 
+        //ChoiceBox options for scene1
+        ChoiceBox<String> choiceBox1 = new ChoiceBox<>();
+        choiceBox1.getItems().add("Horizonal Bar Chart");
+        choiceBox1.getItems().add("Line Chart");
+
+        //ChoiceBox button for scecne1
+        Button choiceButton1 = new Button("Enter");
+
+        //Set default to graph 1
+        choiceBox1.setValue("Horizontal Bar Chart");
+
+        if(choiceBox1.getValue() == "Horizontal Bar Chart") choiceButton1.setOnAction(e -> window.setScene(scene2));
+        if(choiceBox1.getValue() == "Line Chart") choiceButton1.setOnAction(e -> window.setScene(scene1));
+
+        //ChoiceBox options for scene2
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
         choiceBox.getItems().add("Horizonal Bar Chart");
         choiceBox.getItems().add("Line Chart");
