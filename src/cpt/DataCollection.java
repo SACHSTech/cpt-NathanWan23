@@ -98,7 +98,7 @@ public class DataCollection{
         
     }
 
-    public static ArrayList<String> countryName(){
+    public ArrayList<String> countryName(){
         
         ArrayList <String> customList = new ArrayList <String>();
 
@@ -108,9 +108,8 @@ public class DataCollection{
 
     }
 
-    public static ArrayList<Country> getList(){
+    public ArrayList<Country> getList(){
         return countryList;
     }
-
 
 }
