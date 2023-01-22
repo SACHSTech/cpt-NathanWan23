@@ -44,49 +44,6 @@ public class Main extends Application{
     Scene scene2;
     CheckBox CheckBox;    
     Button button;
-
-    int sceneCounter = 1, hihi = 1;
-    
-  /*private BarChart chart;
-  private CategoryAxis xAxis;
-  private NumberAxis yAxis;*/
-
-    /*private LineChart chart;
-    private NumberAxis xAxis;
-    private NumberAxis yAxis;*/
-
-    /*public Parent createContent() {
-        String[] years = {"2007", "2008", "2009"};
-        int[] data = {567, 1292, 1292};
-
-        DataCollection DataCollection = new DataCollection();
-
-        xAxis = new CategoryAxis();
-        // Need to change this years right
-        xAxis.setCategories(FXCollections.<String>observableArrayList(years));
-        yAxis = new NumberAxis("Alchohol Consumption", 0.0d, 30.0d, 100.0d); 
-        
-        ObservableList<BarChart.Series> barChartData = ObservableList<BarChart.Series>();
-
-
-            FXCollections.observableArrayList(
-              for(int i = 0; i< CountryList.size(); i += 3){
-              new BarChart.Series(countryList.get(i).getName(), FXCollections.observableArrayList(
-                new BarChart.Data(countryList.get(i).getYear(), countryList.get(i).getAlcConsumption()),
-                new BarChart.Data(countryList.get(i+1).getYear(), countryList.get(i+1).getAlcConsumption()),
-                new BarChart.Data(countryList.get(i+2).getYear(), countryList.get(i+2).getAlcConsumption()))),
-              }
-            );
-        chart = new BarChart(xAxis, yAxis, barChartData, 25.0d);
-
-        
-    //}
-
-        return chart;
-        
-  } */
-
-  //public class HorizontalBarChartApp extends Application {
  
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
@@ -107,8 +64,6 @@ public class Main extends Application{
         ArrayList<Country> year3 = DataCollection.yearlyData(2015);
         ArrayList<Country> year4 = DataCollection.yearlyData(2018);
 
-        //ArrayList<Country> test = DataCollection.getList();
-
         listCountryName = DataCollection.countryName();
 
         //final ObservableList<String> categories =
@@ -121,8 +76,6 @@ public class Main extends Application{
         //yAxis.setCategories(categories);
         xAxis.setLabel("Total Pure Alcohol Consumption per Person over 15 years of age");
  
-        // add starting data
-        
         //XYChart.Series<Number, String> series1 = new XYChart.Series<>();
         series1.setName("2000");
         for(int i = 0; i<year1.size();i++){
@@ -196,7 +149,6 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws IOException {
         window = primaryStage;
-        //primaryStage.setScene(new Scene(createContent()));
         
         //Create CheckBox for year selection in graph 1
         CheckBox box1 = new CheckBox("2000");
@@ -228,7 +180,6 @@ public class Main extends Application{
         
         window.setScene(scene1);
         window.show();
-        //primaryStage.show();
     }
  
     /**
@@ -237,27 +188,5 @@ public class Main extends Application{
     public static void main(String[] args) throws IOException{
         launch(args);
     }
-
-    /*public static ArrayList<String> countryName(ArrayList<Country> test){
-        
-        ArrayList <String> customList = new ArrayList <String>();
-
-        for(int i = 0; i < test.size();i++) customList.add((test).get(i).getName());
-        
-        return customList;
-
-    }*/
-
-    /*public static ArrayList<Country> yearlyData(int year){
-
-        ArrayList <Country> customList = new ArrayList <Country>();
-
-        for(int i = 0; i < countryList.size();i++){
-            if(countryList.get(i).getYear() == year) customList.add(countryList.get(i));
-        }
-        
-        return customList;
-        
-    }*/
 
 }
