@@ -217,19 +217,14 @@ public class Main extends Application{
         //Layout 1
         VBox layout1 = new VBox(10);
         layout1.setPadding(new Insets(20,20,20,20));
-        layout1.getChildren().addAll(box1, box2, box3, box4, checkButton, horizontalBarChartApp(), buttonScene1, buttonScene2);
+        layout1.getChildren().addAll(box1, box2, box3, box4, checkButton, horizontalBarChartApp(), buttonScene2);
         scene1 = new Scene(layout1, 600, 600);
 
         //Layout 2
         StackPane layout2 = new StackPane();
         layout2.setPadding(new Insets(20,20,20,20));
-        layout2.getChildren().addAll(buttonScene1, buttonScene2);
-        scene2 = new Scene(layout2, 600, 600); 
-
-        if(hihi == 1){
-            System.out.println(1);
-        }
-        
+        layout2.getChildren().addAll(buttonScene1);
+        scene2 = new Scene(layout2, 600, 600);         
         
         window.setScene(scene1);
         window.show();
