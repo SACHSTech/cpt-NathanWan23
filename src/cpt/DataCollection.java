@@ -112,4 +112,16 @@ public class DataCollection{
         return countryList;
     }
 
+    public ArrayList<Country> countryData(String country){
+
+        ArrayList <Country> customList = new ArrayList <Country>();
+
+        for(int i = 0; i < countryList.size();i++){
+            if(countryList.get(i).getName() == country) customList.add(countryList.get(i));
+        }
+        
+        return customList;
+        
+    }
+
 }

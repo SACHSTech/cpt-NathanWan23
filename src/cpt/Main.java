@@ -3,9 +3,10 @@ package cpt;
 import java.util.*;
 import java.io.*;
 
+import javafx.collections.ObservableList;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -13,6 +14,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 
+//Imports for Line Chart
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
@@ -33,9 +35,15 @@ public class Main extends Application{
     CheckBox CheckBox;    
     Button button;
  
+    //Bar Chart variables
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
+
+    //Line Chart variables
+    private LineChart chart2;
+    private NumberAxis xAxis2;
+    private NumberAxis yAxis2;
 
     private XYChart.Series<Number, String> series1 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series2 = new XYChart.Series<>();
@@ -122,6 +130,38 @@ public class Main extends Application{
     }
 
     public Parent LineChartApp() throws IOException {
+
+        DataCollection dataCollection = new DataCollection();
+        ArrayList<String> listCountryName = new ArrayList<String>();
+        
+        ArrayList<Country> year1 = ataCollection.yearlyData(2000);
+        ArrayList<Country> year2 = DataCollection.yearlyData(2010);
+        ArrayList<Country> year3 = DataCollection.yearlyData(2015);
+        ArrayList<Country> year4 = DataCollection.yearlyData(2018);
+
+        listCountryName = DataCollection.countryName();
+
+
+        xAxis2 = new NumberAxis("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)", 0, 20, 1);
+        yAxis2 = new NumberAxis("Values for Y-Axis", 2000, 2018, 1);
+        //ObservableList<XYChart.Series<Double,Double>> lineChartData =
+            FXCollections.observableArrayList(
+                new LineChart.Series<>("Series 1",
+                                       FXCollections.observableArrayList(
+                    new XYChart.Data<>(0.0, 1.0),
+                    new XYChart.Data<>(1.2, 1.4),
+                    new XYChart.Data<>(2.2, 1.9),
+                    new XYChart.Data<>(2.7, 2.3),
+                    new XYChart.Data<>(2.9, 0.5))),
+                for(int i = 0; i <listCountryName.size();i++){
+                    new LineChart.Series<>(listCountryName.get(i),
+                        FXCollections.observableArrayList(
+                            for(int j = 0; j<)
+                        )
+                    )
+                }
+            );
+        chart = new LineChart(xAxis, yAxis, lineChartData);
         return chart;
     }
 
