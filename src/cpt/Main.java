@@ -29,6 +29,7 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 //Imports for button
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
 
 //Imports for VBox
@@ -40,7 +41,8 @@ public class Main extends Application{
     
     Stage window;
     Scene scene;
-    Button button;    
+    CheckBox CheckBox;    
+    Button button;
   /*private BarChart chart;
   private CategoryAxis xAxis;
   private NumberAxis yAxis;*/
@@ -85,7 +87,12 @@ public class Main extends Application{
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
- 
+
+    private XYChart.Series<Number, String> series1 = new XYChart.Series<>();
+    private XYChart.Series<Number, String> series2 = new XYChart.Series<>();
+    private XYChart.Series<Number, String> series3 = new XYChart.Series<>();
+    private XYChart.Series<Number, String> series4 = new XYChart.Series<>();
+    
     public Parent createContent() throws IOException{
         DataCollection DataCollection = new DataCollection();
         ArrayList<String> listCountryName = new ArrayList<String>();
@@ -110,28 +117,29 @@ public class Main extends Application{
         xAxis.setLabel("Total Pure Alcohol Consumption per Person over 15 years of age");
  
         // add starting data
-        XYChart.Series<Number, String> series1 = new XYChart.Series<>();
+        
+        //XYChart.Series<Number, String> series1 = new XYChart.Series<>();
         series1.setName("2000");
         for(int i = 0; i<year1.size();i++){
             series1.getData().add(
             new XYChart.Data<Number, String>(year1.get(i).getAlcConsumption(), year1.get(i).getName()));                
         }
 
-        XYChart.Series<Number, String> series2 = new XYChart.Series<>();
+        //XYChart.Series<Number, String> series2 = new XYChart.Series<>();
         series2.setName("2010");
         for(int i = 0; i<year2.size();i++){
             series2.getData().add(
             new XYChart.Data<Number, String>(year2.get(i).getAlcConsumption(), year2.get(i).getName()));     
         }
 
-        XYChart.Series<Number, String> series3 = new XYChart.Series<>();
+        //XYChart.Series<Number, String> series3 = new XYChart.Series<>();
         series3.setName("2015");
         for(int i = 0; i<year3.size();i++){
             series3.getData().add(
             new XYChart.Data<Number, String>(year3.get(i).getAlcConsumption(), year3.get(i).getName()));          
         }
     
-        XYChart.Series<Number, String> series4 = new XYChart.Series<>();
+        //XYChart.Series<Number, String> series4 = new XYChart.Series<>();
             series4.setName("2018");
             for(int i = 0; i<year4.size();i++){
                 series4.getData().add(
@@ -158,20 +166,25 @@ public class Main extends Application{
                 new XYChart.Data<Number, String>(1000, years[1]),
                 new XYChart.Data<Number, String>(2800, years[2])); */
  
-        chart.getData().add(series1);
-        chart.getData().add(series2);
-        chart.getData().add(series3);
-        chart.getData().add(series4);
+        //chart.getData().add(series1);
+        //chart.getData().add(series2);
+        //chart.getData().add(series3);
+        //chart.getData().add(series4);
         chart.setPrefHeight(600);
         chart.setPrefWidth(500);
         return chart;
     }
 
-    private void button(Button button1, Button button2, Button button3, Button button4) throws IOException{
+    private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
-        if(button1.isSelected()){
-
-        }
+        if(box1.isSelected()) chart.getData().add(series1);
+        else chart.getData().remove(series1);
+        if(box2.isSelected()) chart.getData().add(series2);
+        else chart.getData().remove(series2);
+        if(box3.isSelected()) chart.getData().add(series3);
+        else chart.getData().remove(series3);
+        if(box4.isSelected()) chart.getData().add(series4);
+        else chart.getData().remove(series4);
     }
  
     @Override
@@ -181,14 +194,17 @@ public class Main extends Application{
         
         //Button code
         CheckBox box1 = new CheckBox("2000");
-        CheckBox box2 new CheckBox("2010");
+        CheckBox box2 = new CheckBox("2010");
         CheckBox box3 = new CheckBox("2015");
-        CheckBox box4 new CheckBox("2018");
+        CheckBox box4 = new CheckBox("2018");
+
+        button = new Button("Enter");
+        button.setOnAction(e -> handleOptions(box1,box2,box3,box4));
 
         //Layout
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(button1, button2, button3, button4, createContent());
+        layout.getChildren().addAll(box1, box2, box3, box4, button, createContent());
 
         scene = new Scene(layout, 600, 600);
         window.setScene(scene);
