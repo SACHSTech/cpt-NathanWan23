@@ -112,14 +112,17 @@ public class DataCollection{
         return countryList;
     }
 
-    public ArrayList<Country> countryData(String country){
+    public ArrayList<Double> countryData(String country){
 
-        ArrayList <Country> customList = new ArrayList <Country>();
+        ArrayList <Double> customList = new ArrayList <Double>();
 
         for(int i = 0; i < countryList.size();i++){
-            if(countryList.get(i).getName() == country) customList.add(countryList.get(i));
-        }
+            if(countryList.get(i).getName().equals(country)) {
+                customList.add((double)countryList.get(i).getYear());
+                customList.add(countryList.get(i).getAlcConsumption());
         
+            }
+        }
         return customList;
         
     }
