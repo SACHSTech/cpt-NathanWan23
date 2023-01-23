@@ -16,20 +16,25 @@ public class DataCollection{
     
         DataCollection DataCollection = new DataCollection();
          
-        for(int i = 0; i<countryList.size();i++){
+        /*for(int i = 0; i<countryList.size();i++){
             System.out.println(countryList.get(i).getName());
             System.out.println(countryList.get(i).getYear());
             System.out.println(countryList.get(i).getAlcConsumption());
+        }*/
+
+        ArrayList <Double> Lis = new ArrayList <Double>();
+        Lis = DataCollection.countryData("Canada");
+
+        for(int i =0;i<Lis.size();i++){
+            System.out.println(Lis.get(i));
         }
 
-        /*ArrayList <Country> List = new ArrayList <Country>();
-        List = addCountry(2000);
+        ArrayList <String> List = new ArrayList <String>();
+        List = DataCollection.hi();
 
         for(int i = 0; i<List.size();i++){
-            System.out.println(List.get(i).getName());
-            System.out.println(List.get(i).getYear());
-            System.out.println(List.get(i).getAlcConsumption());
-        }*/
+            System.out.println(List.get(i));
+        }
 
         
 
@@ -125,6 +130,25 @@ public class DataCollection{
         }
         return customList;
         
+    }
+
+    public static ArrayList<String> hi(){
+        ArrayList <String> customList = new ArrayList <String>();
+        String lastCountry = countryList.get(0).getName(); 
+        //boolean done = true;
+        int i = 1, counter = 0;
+        while(i<countryList.size()){
+            if(countryList.get(i).getName().equals(lastCountry)){
+                counter++;
+            } 
+            else {
+                if(counter < 4) customList.add(countryList.get(i-1).getName());
+                lastCountry = countryList.get(i).getName();
+                counter = 0;
+            }
+            i++;
+        }
+        return customList;
     }
 
 }
