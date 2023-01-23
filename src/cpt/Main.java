@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 //Imports for Line Chart
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.NumberAxis;
 
 //Imports for button
 import javafx.scene.control.CheckBox;
@@ -41,7 +42,7 @@ public class Main extends Application{
     private CategoryAxis yAxis;
 
     //Line Chart variables
-    private LineChart chart2;
+    private LineChart<Double, Double> chart2;
     private NumberAxis xAxis2;
     private NumberAxis yAxis2;
 
@@ -129,40 +130,39 @@ public class Main extends Application{
         return chart;
     }
 
-    public Parent LineChartApp() throws IOException {
+    public Parent lineChartApp() throws IOException {
 
         DataCollection dataCollection = new DataCollection();
-        ArrayList<String> listCountryName = new ArrayList<String>();
-        
-        ArrayList<Country> year1 = ataCollection.yearlyData(2000);
-        ArrayList<Country> year2 = DataCollection.yearlyData(2010);
-        ArrayList<Country> year3 = DataCollection.yearlyData(2015);
-        ArrayList<Country> year4 = DataCollection.yearlyData(2018);
-
-        listCountryName = DataCollection.countryName();
+        ArrayList<String> listCountryName = dataCollection.countryName();
+        ArrayList<Double> countryData = new ArrayList<Double>();
 
 
         xAxis2 = new NumberAxis("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)", 0, 20, 1);
         yAxis2 = new NumberAxis("Values for Y-Axis", 2000, 2018, 1);
         //ObservableList<XYChart.Series<Double,Double>> lineChartData =
-            FXCollections.observableArrayList(
-                new LineChart.Series<>("Series 1",
-                                       FXCollections.observableArrayList(
-                    new XYChart.Data<>(0.0, 1.0),
-                    new XYChart.Data<>(1.2, 1.4),
-                    new XYChart.Data<>(2.2, 1.9),
-                    new XYChart.Data<>(2.7, 2.3),
-                    new XYChart.Data<>(2.9, 0.5))),
-                for(int i = 0; i <listCountryName.size();i++){
-                    new LineChart.Series<>(listCountryName.get(i),
-                        FXCollections.observableArrayList(
-                            for(int j = 0; j<)
-                        )
-                    )
-                }
-            );
-        chart = new LineChart(xAxis, yAxis, lineChartData);
-        return chart;
+            FXCollections.<Double>observableArrayList(countryData);
+            for(int i = 0; i <listCountryName.size(); i++){
+
+                countryData = dataCollection.countryData(listCountryName.get(i));
+                LineChart.Series<Double, Double> series = new LineChart.Series<Double, Double>();
+                series.getData().addAll(
+                    new XYChart.Data<Double, Double>(countryData.get(0), countryData.get(1)),
+                    new XYChart.Data<Double,Double>(countryData.get(2), countryData.get(3)),
+                    new XYChart.Data<Double,Double>(countryData.get(4), countryData.get(5)),
+                    new XYChart.Data<Double,Double>(countryData.get(6), countryData.get(7)));
+
+                chart2.getData().add(series);
+                /*new LineChart.Series<Double,Double>(listCountryName.get(i),
+                    FXCollections.observableArrayList(
+                        new XYChart.Data<Double,Double>(countryData.get(0), countryData.get(1)),
+                        new XYChart.Data<Double,Double>(countryData.get(2), countryData.get(3)),
+                        new XYChart.Data<Double,Double>(countryData.get(4), countryData.get(5)),
+                        new XYChart.Data<Double,Double>(countryData.get(6), countryData.get(7))));*/
+                
+            }
+            
+        chart2 = new LineChart(xAxis2, yAxis2);
+        return chart2;
     }
 
     private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
@@ -207,7 +207,7 @@ public class Main extends Application{
         //Layout 2
         StackPane layout2 = new StackPane();
         layout2.setPadding(new Insets(20,20,20,20));
-        layout2.getChildren().addAll(buttonScene1);
+        layout2.getChildren().addAll(lineChartApp(),buttonScene1);
         scene2 = new Scene(layout2, 600, 600);         
         
         window.setScene(scene1);
