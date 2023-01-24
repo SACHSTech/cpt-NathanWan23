@@ -41,7 +41,7 @@ public class DataCollection{
     }
 
     public DataCollection() throws IOException{
-        BufferedReader Br = new BufferedReader(new FileReader("total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv"));
+        BufferedReader Br = new BufferedReader(new FileReader("src\\total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv"));
         String str = Br.readLine();
 
         while(str != null) {
