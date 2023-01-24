@@ -22,6 +22,8 @@ import javafx.scene.chart.NumberAxis;
 //Imports for button
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.TilePane;
 
 //Imports for VBox and stacked layout
 import javafx.scene.layout.VBox;
@@ -34,23 +36,36 @@ public class Main extends Application{
     Scene scene2;
     CheckBox CheckBox;    
     Button button;
+    ChoiceBox ChoiceBox;
  
-    //Bar Chart variables
+    //Bar chart variables
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
 
-    //Line Chart variables
+    //Line chart variables
     private LineChart<Double, Double> chart2;
     private NumberAxis xAxis2;
     private NumberAxis yAxis2;
 
+    //Bar chart series
     private XYChart.Series<Number, String> series1 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series2 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series3 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series4 = new XYChart.Series<>();
-    
+
+    //Line chart series
+    //private ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
+    //private ObservableList<XYChart.Data> seriesData2 = FXCollections.observableArrayList();
+    //private ArrayList<Country> country1 = new ArrayList<Country>();
+    //private ArrayList<Country> country2 = new ArrayList<Country>();
+
+    private ArrayList<Double> countryData1 = new ArrayList<Double>();
+    private ArrayList<Double> countryData2 = new ArrayList<Double>();
+    private String country1Name, country2Name;
+
     public Parent horizontalBarChartApp() throws IOException {
+        
         DataCollection DataCollection = new DataCollection();
         ArrayList<String> listCountryName = new ArrayList<String>();
         
@@ -61,7 +76,7 @@ public class Main extends Application{
 
         listCountryName = DataCollection.countryName();
 
-            FXCollections.<String>observableArrayList(listCountryName);
+        FXCollections.<String>observableArrayList(listCountryName);
         xAxis = new NumberAxis();
         yAxis = new CategoryAxis();
         chart = new BarChart<>(xAxis, yAxis);
@@ -87,11 +102,11 @@ public class Main extends Application{
             new XYChart.Data<Number, String>(year3.get(i).getAlcConsumption(), year3.get(i).getName()));          
         }
     
-            series4.setName("2018");
-            for(int i = 0; i<year4.size();i++){
-                series4.getData().add(
-                new XYChart.Data<Number, String>(year4.get(i).getAlcConsumption(), year4.get(i).getName()));
-            }
+        series4.setName("2018");
+        for(int i = 0; i<year4.size();i++){
+            series4.getData().add(
+            new XYChart.Data<Number, String>(year4.get(i).getAlcConsumption(), year4.get(i).getName()));
+        }
         
         chart.setPrefHeight(600);
         chart.setPrefWidth(500);
@@ -102,16 +117,34 @@ public class Main extends Application{
 
         DataCollection dataCollection = new DataCollection();
         ArrayList<String> listCountryName = dataCollection.countryName();
-        ArrayList<Double> countryData = new ArrayList<Double>();
 
+        //countryData1 = dataCollection.countryData(country1.get(0).getName());
+        //countryData2 = dataCollection.countryData(country2.get(0).getName());
 
         xAxis2 = new NumberAxis("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)", 0, 20, 0.5);
         yAxis2 = new NumberAxis("Years", 2000, 2020, 1);
         //ObservableList<XYChart.Series<Double,Double>> lineChartData =
-        
+
+        ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
+        ObservableList<XYChart.Data> seriesData2 = FXCollections.observableArrayList();
         ObservableList<XYChart.Series<Double,Double>> lineChartData = FXCollections.observableArrayList();
         
-        for(int i = 0; i< listCountryName.size();i++){
+        for(int j = 0; j < 8; j+=2){
+
+            seriesData1.add( new XYChart.Data<>(countryData1.get(j+1), countryData1.get(j)));
+            seriesData2.add( new XYChart.Data<>(countryData2.get(j+1), countryData2.get(j)));
+            
+        }
+        XYChart.Series series1 = new XYChart.Series();
+        XYChart.Series series2 = new XYChart.Series();
+        series1.setData(seriesData1);
+        series2.setData(seriesData2);
+        series1.setName(country1Name);
+        series2.setName(country2Name);
+        lineChartData.add(series1);
+        lineChartData.add(series2);
+
+        /*for(int i = 0; i< listCountryName.size();i++){
             ObservableList<XYChart.Data> seriesData = FXCollections.observableArrayList();
 
             countryData = dataCollection.countryData(listCountryName.get(i));
@@ -126,9 +159,10 @@ public class Main extends Application{
             series.setData(seriesData);
             series.setName(listCountryName.get(i));
             lineChartData.add(series);
-        }
+        }*/
 
         ///////////
+
         //ObservableList<XYChart.Data> seriesData = FXCollections.observableArrayList();
         /*for(int i = 0; i< listCountryName.size();i++){
             ObservableList<XYChart.Data> seriesData = FXCollections.observableArrayList();
@@ -212,6 +246,13 @@ public class Main extends Application{
  
     @Override
     public void start(Stage primaryStage) throws IOException {
+
+        DataCollection dataCollection = new DataCollection();
+        ArrayList<String> listCountryName = dataCollection.countryName();
+
+        ChoiceBox<String> choiceBox1 = new ChoiceBox<String>();
+        ChoiceBox<String> choiceBox2 = new ChoiceBox<String>();
+
         window = primaryStage;
         
         //Create CheckBox for year selection in graph 1
@@ -236,11 +277,35 @@ public class Main extends Application{
         layout1.getChildren().addAll(box1, box2, box3, box4, checkButton, lineChartApp(), buttonScene2);
         scene1 = new Scene(layout1, 600, 600);
 
+        //ChoiceBox<String> choiceBox1 = new ChoiceBox<String>();
+        //ChoiceBox<String> choiceBox2 = new ChoiceBox<String>();
+        for(int i = 0; i<listCountryName.size(); i++){
+            choiceBox1.getItems().add(listCountryName.get(i));
+            choiceBox2.getItems().add(listCountryName.get(i));
+        }
+
+        choiceBox1.setOnAction((event) -> {
+            
+            //int selectedIndex1 = choiceBox1.getSelectionModel().getSelectedIndex();
+            //Object selectedItem1 = choiceBox1.getSelectionModel().getSelectedItem();
+            countryData1 = dataCollection.countryData(String.valueOf(choiceBox1.getValue()));
+        });
+
+        choiceBox2.setOnAction((event) -> {
+            
+            //int selectedIndex1 = choiceBox2.getSelectionModel().getSelectedIndex();
+            //Object selectedItem1 = choiceBox2.getSelectionModel().getSelectedItem();
+            countryData2 = dataCollection.countryData(String.valueOf(choiceBox2.getValue()));
+        });
+
+        country1Name = String.valueOf(choiceBox1.getValue());
+        country2Name = String.valueOf(choiceBox2.getValue());
+
         //Layout 2
         VBox layout2 = new VBox(10);
         //StackPane layout2 = new StackPane();
         layout2.setPadding(new Insets(20,20,20,20));
-        layout2.getChildren().addAll(lineChartApp(),buttonScene1);
+        layout2.getChildren().addAll(choiceBox1, choiceBox2, lineChartApp(),buttonScene1);
         scene2 = new Scene(layout2, 600, 600);         
         
         window.setScene(scene1);
