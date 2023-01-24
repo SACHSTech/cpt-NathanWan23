@@ -30,11 +30,11 @@ public class DataCollection{
         }
 
         ArrayList <String> List = new ArrayList <String>();
-        List = DataCollection.hi();
+        List = DataCollection.countryName();
 
         for(int i = 0; i<List.size();i++){
             System.out.println(List.get(i));
-        }
+        } 
 
         
 
@@ -106,9 +106,11 @@ public class DataCollection{
     public ArrayList<String> countryName(){
         
         ArrayList <String> customList = new ArrayList <String>();
+        customList.add(countryList.get(0).getName());
 
-        for(int i = 0; i < countryList.size();i++) customList.add(countryList.get(i).getName());
-        
+        for(int i = 1; i < countryList.size();i++) {
+            if(countryList.get(i).getName().equals(countryList.get(i-1).getName()) == false) customList.add(countryList.get(i).getName()); 
+        }
         return customList;
 
     }
