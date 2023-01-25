@@ -19,6 +19,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.NumberAxis;
 
+//Imports for Pie Chart
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
+import javafx.scene.input.MouseEvent;
+
 //Imports for button
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
@@ -48,6 +53,11 @@ public class Main extends Application{
     private NumberAxis xAxis2;
     private NumberAxis yAxis2;
 
+    //Pie chart variables
+    private ObservableList<Data> dataChart2;
+    private PieChart pieChart;
+    private int year = 2018;
+
     private XYChart.Series series1Chart2 = new XYChart.Series();
     private XYChart.Series series2Chart2 = new XYChart.Series();
 
@@ -59,14 +69,14 @@ public class Main extends Application{
 
 
     //Line chart series
-    //private ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
-    //private ObservableList<XYChart.Data> seriesData2 = FXCollections.observableArrayList();
-    //private ArrayList<Country> country1 = new ArrayList<Country>();
-    //private ArrayList<Country> country2 = new ArrayList<Country>();
+    private ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
+    private ObservableList<XYChart.Data> seriesData2 = FXCollections.observableArrayList();
+    private ArrayList<Country> country1 = new ArrayList<Country>();
+    private ArrayList<Country> country2 = new ArrayList<Country>();
 
     private ArrayList<Double> countryData1 = new ArrayList<Double>();
     private ArrayList<Double> countryData2 = new ArrayList<Double>();
-    private String country1Name, country2Name;
+    private String country1Name = "Canada", country2Name = "North Korea";
 
     public Parent horizontalBarChartApp() throws IOException {
 
@@ -117,7 +127,35 @@ public class Main extends Application{
         return chart;
     }
 
-    public Parent lineChartApp() throws IOException {
+ 
+    public static ObservableList<PieChart.Data> generateData(int year) throws IOException {
+
+        DataCollection dataCollection = new DataCollection();
+        ArrayList<Country> yearlyData = dataCollection.yearlyData(year);
+
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+        for(int i = 0; i< yearlyData.size(); i++){
+            data.add(new PieChart.Data(yearlyData.get(i).getName(), yearlyData.get(i).getAlcConsumption()));
+        }
+        return data;
+    }
+    /*public static ObservableList<PieChart.Data> generateData() {
+        return FXCollections.observableArrayList(
+                new PieChart.Data("Sun", 20),
+                new PieChart.Data("IBM", 12),
+                new PieChart.Data("HP", 25),
+                new PieChart.Data("Dell", 22),
+                new PieChart.Data("Apple", 30));
+    }*/
+
+    public Parent pieChartApp() throws IOException {
+        pieChart = new PieChart(generateData(2010));
+        pieChart.setClockwise(false);
+        return pieChart;
+    }
+
+    /*public Parent lineChartApp() throws IOException {
 
         DataCollection dataCollection = new DataCollection();
         //ArrayList<String> listCountryName = dataCollection.countryName();
@@ -235,9 +273,9 @@ public class Main extends Application{
 
         lineChartData.add(series1);*/
             
-        chart2 = new LineChart(xAxis2, yAxis2,lineChartData);
-        return chart2;
-    }
+        //chart2 = new LineChart(xAxis2, yAxis2,lineChartData);
+        //return chart2;
+    //}
 
     private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
@@ -255,11 +293,13 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        DataCollection dataCollection = new DataCollection();
+        /*DataCollection dataCollection = new DataCollection();
         ArrayList<String> listCountryNames = dataCollection.countryName();
 
         ChoiceBox<String> choiceBox1 = new ChoiceBox<String>();
         ChoiceBox<String> choiceBox2 = new ChoiceBox<String>();
+        Button but = new Button("Compare"); 
+        Button butt = new Button("Compare.");*/
 
         window = primaryStage;
         
@@ -286,11 +326,16 @@ public class Main extends Application{
         scene1 = new Scene(layout1, 600, 600);
 
         
-        for(int i = 0; i<listCountryNames.size(); i++){
+        /*for(int i = 0; i<listCountryNames.size(); i++){
             choiceBox1.getItems().add(listCountryNames.get(i));
             choiceBox2.getItems().add(listCountryNames.get(i));
-        }
+        }*/
+        //choiceBox1.setValue("Canda");
+        //choiceBox2.setValue("North Korea");
 
+        //but.setOnAction(e-> getChoice1(choiceBox1));
+        //butt.setOnAction(e-> getChoice2(choiceBox2));
+/* 
         choiceBox1.setValue("Canada");
         choiceBox2.setValue("North Korea");
 
@@ -322,11 +367,15 @@ public class Main extends Application{
         //series1Chart2.setName(country1Name);
         //series1Chart2.setData(data(country1Name));
         //series2Chart2.setData(data(country2Name));
+
+        */
+
         //Layout 2
         VBox layout2 = new VBox(10);
         //StackPane layout2 = new StackPane();
         layout2.setPadding(new Insets(20,20,20,20));
-        layout2.getChildren().addAll(choiceBox1, choiceBox2, lineChartApp(), buttonScene1);
+        layout2.getChildren().addAll(choiceBox1, but, choiceBox2, butt, lineChartApp(), buttonScene1);
+        //layout2.getChildren().addAll(pieChartApp(), buttonScene1);
         scene2 = new Scene(layout2, 600, 600);         
         
         window.setScene(scene1);
@@ -340,15 +389,28 @@ public class Main extends Application{
         launch(args);
     }
 
-    public ObservableList<XYChart.Data> data(String countryName) throws IOException{
+   /*  public ObservableList<XYChart.Series<Double,Double>> data(String countryName) throws IOException{
         DataCollection dataCollection = new DataCollection();
-        ObservableList<XYChart.Data> data = FXCollections.observableArrayList();
+        ObservableList<XYChart.Series<Double,Double>> data = FXCollections.observableArrayList();
+        ObservableList<XYChart.Data> seriesData = FXCollections.observableArrayList();
         ArrayList<Double> countryData = new ArrayList<Double>();
         countryData = dataCollection.countryData(countryName);
         for(int j = 0; j < 8; j+=2){
-            data.add( new XYChart.Data<>(countryData.get(j+1), countryData.get(j)));
+            seriesData.add( new XYChart.Data<>(countryData.get(j+1), countryData.get(j)));
         }
+        data.add(seriesData);
         return data;
     }
+
+    private void getChoice1(ChoiceBox<String> choiceBox){
+        chart2.getData().remove(series1Chart2);
+        country1Name = choiceBox.getValue();
+    }
+
+    private void getChoice2(ChoiceBox<String> choiceBox){
+        chart2.getData().remove(series2Chart2);
+        country2Name = choiceBox.getValue();
+        chart2.setData(data(country2Name));
+    }*/
 
 }
