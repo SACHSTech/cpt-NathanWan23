@@ -115,10 +115,6 @@ public class DataCollection{
 
     }
 
-    public ArrayList<Country> getList(){
-        return countryList;
-    }
-
     public ArrayList<Double> countryData(String country){
 
         ArrayList <Double> customList = new ArrayList <Double>();

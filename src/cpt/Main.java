@@ -192,7 +192,7 @@ public class Main extends Application{
             new XYChart.Data<String, Number>(year4.get(i).getName(),year4.get(i).getAlcConsumption()));
         }
 
-    scatterChart = new ScatterChart(xAxis, yAxis);
+    scatterChart = new ScatterChart(xAxisScatter, yAxisScatter);
     return scatterChart;
     }
 
