@@ -21,12 +21,16 @@ import javafx.scene.chart.XYChart;
 //Imports for button
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 
 //Imports for VBox and stacked layout
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
+/**
+ * Data integration with graphs and visualization
+ * @author: N. Wan
+ * 
+ */
 public class Main extends Application{
     
     Stage window;
@@ -34,20 +38,19 @@ public class Main extends Application{
     Scene scene2;
     CheckBox CheckBox;    
     Button button;
-    ChoiceBox ChoiceBox;
  
     //Bar chart variables
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
     
+    //Bar chart options to help stop double data
     private boolean box1Graph1Option, box2Graph1Option, box3Graph1Option, box4Graph1Option;
 
     //Scatter chart variables
     private ScatterChart<String, Number> scatterChart;
     private CategoryAxis xAxisScatter;
     private NumberAxis yAxisScatter;
-
     private XYChart.Series<String, Number> series1Scatter = new XYChart.Series<>();
     private XYChart.Series<String, Number> series2Scatter = new XYChart.Series<>();
     private XYChart.Series<String, Number> series3Scatter = new XYChart.Series<>();
@@ -59,21 +62,28 @@ public class Main extends Application{
     private XYChart.Series<Number, String> series3 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series4 = new XYChart.Series<>();
 
+    //Line chart options to help stop double data
     private boolean box1Graph2Option, box2Graph2Option, box3Graph2Option, box4Graph2Option;
 
+    /**
+     * Makes a horizontal bar chart with data 
+     * @return Returns horizontal bar chart 
+     */
     public Parent horizontalBarChartApp() throws IOException {
 
+        // Get all countries
         DataCollection dataCollection = new DataCollection();
-        ArrayList<String> listCountryName = new ArrayList<String>();
+        ArrayList<String> listCountryName = dataCollection.countryName();
         
+        //Get all data in a specific year
         ArrayList<Country> year1 = dataCollection.yearlyData(2000);
         ArrayList<Country> year2 = dataCollection.yearlyData(2010);
         ArrayList<Country> year3 = dataCollection.yearlyData(2015);
         ArrayList<Country> year4 = dataCollection.yearlyData(2018);
 
-        listCountryName = dataCollection.countryName();
-
         FXCollections.<String>observableArrayList(listCountryName);
+
+        //Define and label axis and title
         xAxis = new NumberAxis();
         yAxis = new CategoryAxis();
         chart = new BarChart<>(xAxis, yAxis);
@@ -81,6 +91,7 @@ public class Main extends Application{
         yAxis.setLabel("Country");
         xAxis.setLabel("Total Pure Alcohol Consumption per Person over 15 years of age");
  
+        //Add data to series
         series1.setName("2000");
         for(int i = 0; i<year1.size();i++){
             series1.getData().add(
@@ -105,28 +116,33 @@ public class Main extends Application{
             new XYChart.Data<Number, String>(year4.get(i).getAlcConsumption(), year4.get(i).getName()));
         }
         
+        //Set chart size and return
         chart.setPrefHeight(600);
         chart.setPrefWidth(500);
         return chart;
     }
 
-    
+    /**
+     * Makes a scatteer chart with data 
+     * @return Returns scatter chart 
+     */
     public Parent scatterChartApp() throws IOException{ 
 
         DataCollection dataCollection = new DataCollection();
 
+        //Get all data in a specific year
         ArrayList<Country> year1 = dataCollection.yearlyData(2000);
         ArrayList<Country> year2 = dataCollection.yearlyData(2010);
         ArrayList<Country> year3 = dataCollection.yearlyData(2015);
         ArrayList<Country> year4 = dataCollection.yearlyData(2018);
 
-        ObservableList<XYChart.Series<String,Double>> lineChartData = FXCollections.observableArrayList();
-
+        //Define axis and set label
         xAxisScatter = new CategoryAxis();
         yAxisScatter = new NumberAxis();
         xAxisScatter.setLabel("Country");
         yAxisScatter.setLabel("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)");
         
+        //Add data to series
         series1Scatter.setName("2000");
         for(int i = 0; i<year1.size();i++){
             series1Scatter.getData().add(
@@ -150,11 +166,21 @@ public class Main extends Application{
             new XYChart.Data<String, Number>(year4.get(i).getName(),year4.get(i).getAlcConsumption()));
         }
 
+    //Create the scatter chart
     scatterChart = new ScatterChart(xAxisScatter, yAxisScatter);
+
+    //Set title and return
     scatterChart.setTitle("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)");
     return scatterChart;
     }
 
+    /**
+    * Button handle option for horizontal bar chart
+    * @param box1 Button to display 2000 data 
+    * @param box2 Button to display 2010 data 
+    * @param box3 Button to display 2015 data
+    * @param box4 Button to display 2020 data
+    */
     private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
         if(box1Graph1Option == false && box1.isSelected()){ 
@@ -190,7 +216,14 @@ public class Main extends Application{
         }
     }
 
-    private void handlePieOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
+    /**
+    * Button handle option for scatter chart
+    * @param box1 Button to display 2000 data 
+    * @param box2 Button to display 2010 data 
+    * @param box3 Button to display 2015 data
+    * @param box4 Button to display 2020 data
+    */
+    private void handleScatterOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
         if(box1.isSelected() && box1Graph2Option == false) {
             scatterChart.getData().add(series1Scatter);
@@ -225,6 +258,10 @@ public class Main extends Application{
         }
     }
 
+    /**
+    * start window
+    * @param primaryStage starting page 
+    */
     @Override
     public void start(Stage primaryStage) throws IOException {
         window = primaryStage;
@@ -251,20 +288,23 @@ public class Main extends Application{
         layout1.getChildren().addAll(box1, box2, box3, box4, checkButton, horizontalBarChartApp(), buttonScene2);
         scene1 = new Scene(layout1, 600, 600);
         
+        //Checkboxes for graph 2 
         CheckBox box1Graph2 = new CheckBox("2000");
         CheckBox box2Graph2 = new CheckBox("2010");
         CheckBox box3Graph2 = new CheckBox("2015");
         CheckBox box4Graph2 = new CheckBox("2018");
 
-        Button buttonPie = new Button("Enter");
-        buttonPie.setOnAction(e -> handlePieOptions(box1Graph2,box2Graph2,box3Graph2,box4Graph2));
+        //Create button the confirm scatter chart data
+        Button buttonScatter = new Button("Enter");
+        buttonScatter.setOnAction(e -> handleScatterOptions(box1Graph2,box2Graph2,box3Graph2,box4Graph2));
 
         //Layout 2
         VBox layout2 = new VBox(10);
         layout2.setPadding(new Insets(20,20,20,20));
-        layout2.getChildren().addAll(box1Graph2,box2Graph2,box3Graph2,box4Graph2,  buttonPie, scatterChartApp(), buttonScene1);
+        layout2.getChildren().addAll(box1Graph2,box2Graph2,box3Graph2,box4Graph2, buttonScatter, scatterChartApp(), buttonScene1);
         scene2 = new Scene(layout2, 1920, 1080);         
         
+        //Set scene 1 as base scene and show
         window.setScene(scene1);
         window.show();
     }
