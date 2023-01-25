@@ -50,6 +50,8 @@ public class Main extends Application{
     private BarChart<Number, String> chart;
     private NumberAxis xAxis;
     private CategoryAxis yAxis;
+    
+    private boolean box1Graph1Option, box2Graph1Option, box3Graph1Option, box4Graph1Option;
 
     //Line chart variables
     //private LineChart<Double, Double> chart2;
@@ -57,22 +59,24 @@ public class Main extends Application{
     //private NumberAxis yAxis2;
 
     //Pie chart variables
-    private ObservableList<Data> dataChart2;
+    /*private ObservableList<Data> dataChart2;
     private PieChart pieChart;
-    private int year = 2018;
+    private int year = 2018;*/
 
     //Scatter chart variables
-    private ScatterChart scatterChart;
-    private NumberAxis xAxisScatter;
+    private ScatterChart<String, Number> scatterChart;
+    private CategoryAxis xAxisScatter;
     private NumberAxis yAxisScatter;
 
-    private XYChart.Series series1Chart2 = new XYChart.Series();
-    private XYChart.Series series2Chart2 = new XYChart.Series();
+    //private XYChart.Series series1Chart2 = new XYChart.Series();
+    //private XYChart.Series series2Chart2 = new XYChart.Series();
+    //private XYChart.Series series3Chart2 = new XYChart.Series();
+    //private XYChart.Series series4Chart2 = new XYChart.Series();
 
-    private XYChart.Series<Number, String> series1Scatter = new XYChart.Series<>();
-    private XYChart.Series<Number, String> series2Scatter = new XYChart.Series<>();
-    private XYChart.Series<Number, String> series3Scatter = new XYChart.Series<>();
-    private XYChart.Series<Number, String> series4Scatter = new XYChart.Series<>();
+    private XYChart.Series<String, Number> series1Scatter = new XYChart.Series<>();
+    private XYChart.Series<String, Number> series2Scatter = new XYChart.Series<>();
+    private XYChart.Series<String, Number> series3Scatter = new XYChart.Series<>();
+    private XYChart.Series<String, Number> series4Scatter = new XYChart.Series<>();
 
     //Bar chart series
     private XYChart.Series<Number, String> series1 = new XYChart.Series<>();
@@ -80,8 +84,10 @@ public class Main extends Application{
     private XYChart.Series<Number, String> series3 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series4 = new XYChart.Series<>();
 
+    private boolean box1Graph2Option, box2Graph2Option, box3Graph2Option, box4Graph2Option;
+
     //Line chart series
-    private ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
+    /*private ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
     private ObservableList<XYChart.Data> seriesData2 = FXCollections.observableArrayList();
     private ArrayList<Country> country1 = new ArrayList<Country>();
     private ArrayList<Country> country2 = new ArrayList<Country>();
@@ -90,7 +96,7 @@ public class Main extends Application{
 
     private ArrayList<Double> countryData1 = new ArrayList<Double>();
     private ArrayList<Double> countryData2 = new ArrayList<Double>();
-    private String country1Name = "Canada", country2Name = "North Korea";
+    private String country1Name = "Canada", country2Name = "North Korea";*/
 
     public Parent horizontalBarChartApp() throws IOException {
 
@@ -166,8 +172,14 @@ public class Main extends Application{
 
         ObservableList<XYChart.Series<String,Double>> lineChartData = FXCollections.observableArrayList();
 
+        //scatterChart.setTitle("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)");
+
         xAxisScatter = new CategoryAxis();
-        yAxisScatter = new NumberAxis("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)", 0.0d, 20.0d, 1.0d);
+        yAxisScatter = new NumberAxis();
+        xAxisScatter.setLabel("Country");
+        yAxisScatter.setLabel("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)");
+        //yAxisScatter = new NumberAxis("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)", 0.0d, 20.0d, 1.0d);
+        
         
         series1Scatter.setName("2000");
         for(int i = 0; i<year1.size();i++){
@@ -192,17 +204,22 @@ public class Main extends Application{
             new XYChart.Data<String, Number>(year4.get(i).getName(),year4.get(i).getAlcConsumption()));
         }
 
+    /*scatterChart.getData().add(series1Scatter);
+    scatterChart.getData().add(series2Scatter);
+    scatterChart.getData().add(series3Scatter);
+    scatterChart.getData().add(series4Scatter);*/
     scatterChart = new ScatterChart(xAxisScatter, yAxisScatter);
+    scatterChart.setTitle("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)");
     return scatterChart;
     }
 
-    public Parent pieChartApp() throws IOException {
+    /*public Parent pieChartApp() throws IOException {
         pieChart = new PieChart(generateData(year));
         pieChart.setClockwise(false);
         pieChart.setPrefHeight(980);
         pieChart.setPrefWidth(1800);
         return pieChart;
-    }
+    }*/
 
     /*public Parent lineChartApp() throws IOException {
 
@@ -328,37 +345,85 @@ public class Main extends Application{
 
     private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
-        if(box1.isSelected()) chart.getData().add(series1);
-        else chart.getData().remove(series1);
-        if(box2.isSelected()) chart.getData().add(series2);
-        else chart.getData().remove(series2);
-        if(box3.isSelected()) chart.getData().add(series3);
-        else chart.getData().remove(series3);
-        if(box4.isSelected()) chart.getData().add(series4);
-        else chart.getData().remove(series4);
+        if(box1Graph1Option == false && box1.isSelected()){ 
+            chart.getData().add(series1);
+            box1Graph1Option = true;
+        } else if(box1.isSelected() == false){
+            chart.getData().remove(series1);
+            box2Graph1Option = false; 
+        }
+
+        if(box2.isSelected() && box2Graph1Option == false) {
+            chart.getData().add(series2);
+            box2Graph1Option = true;
+        }else if(box2.isSelected() == false){
+            chart.getData().remove(series2);
+            box2Graph1Option = false;
+        }
+
+        if(box3.isSelected() && box3Graph1Option == false) {
+            chart.getData().add(series3);
+            box3Graph1Option = true;
+        }else if (box3.isSelected() == false) {
+            chart.getData().remove(series3);
+            box3Graph1Option = false;
+        }
+
+        if(box4.isSelected() && box4Graph1Option == false) { 
+            chart.getData().add(series4);
+            box4Graph1Option = true;
+        } else if (box4.isSelected() == false) { 
+            chart.getData().remove(series4);
+            box4Graph1Option = false;
+        }
     }
 
     private void handlePieOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
-        if(box1.isSelected()){
-            year = 2000;
-        } 
-        if(box2.isSelected()) year = 2010;
-        if(box3.isSelected()) year = 2015;
-        if(box4.isSelected()) year = 2018;
+        if(box1.isSelected() && box1Graph2Option == false) {
+            scatterChart.getData().add(series1Scatter);
+            box1Graph2Option = true;
+        }else if (box1.isSelected() == false) {
+            scatterChart.getData().remove(series1Scatter);
+            box1Graph2Option = false;
+        }
+
+        if(box2.isSelected() && box2Graph2Option == false) {
+            scatterChart.getData().add(series2Scatter);
+            box2Graph2Option = true;
+        } else if (box2.isSelected() == false){
+            scatterChart.getData().remove(series2Scatter);
+            box2Graph2Option = false;
+        }
+
+        if(box3.isSelected() && box3Graph2Option == false) {
+            scatterChart.getData().add(series3Scatter);
+            box3Graph2Option = true;
+        } else if (box3.isSelected() == false){
+            scatterChart.getData().remove(series3Scatter);
+            box3Graph2Option = false;
+        }
+
+        if(box4.isSelected() && box4Graph2Option == false) {
+            scatterChart.getData().add(series4Scatter);
+            box4Graph2Option = true;
+        } else if (box4.isSelected() == false){
+            scatterChart.getData().remove(series4Scatter);
+            box4Graph2Option = false; 
+        }
     }
 
  
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        DataCollection dataCollection = new DataCollection();
+        /*DataCollection dataCollection = new DataCollection();
         ArrayList<String> listCountryNames = dataCollection.countryName();
 
         ChoiceBox<String> choiceBox1 = new ChoiceBox<String>();
         ChoiceBox<String> choiceBox2 = new ChoiceBox<String>();
         Button but = new Button("Compare"); 
-        Button butt = new Button("Compare.");
+        Button butt = new Button("Compare.");*/
 
         window = primaryStage;
         
@@ -385,7 +450,7 @@ public class Main extends Application{
         scene1 = new Scene(layout1, 600, 600);
 
         
-        for(int i = 0; i<listCountryNames.size(); i++){
+        /*for(int i = 0; i<listCountryNames.size(); i++){
             choiceBox1.getItems().add(listCountryNames.get(i));
             choiceBox2.getItems().add(listCountryNames.get(i));
         }
@@ -405,7 +470,7 @@ public class Main extends Application{
             country1Name = String.valueOf(choiceBox1.getValue());
             //chart2.getData().remove(series1Chart2);
             countryData1 = dataCollection.countryData(String.valueOf(choiceBox1.getValue()));
-            lineChartData.add(series);
+            //lineChartData.add(series);
             //chart2.getData().add(series1Chart2);
             //series1Chart2.setName(country1Name);
         });
@@ -423,7 +488,7 @@ public class Main extends Application{
         });
 
         country1Name = String.valueOf(choiceBox1.getValue());
-        country2Name = String.valueOf(choiceBox2.getValue());
+        country2Name = String.valueOf(choiceBox2.getValue());*/
         //series1Chart2.setName(country1Name);
         //series1Chart2.setData(data(country1Name));
         //series2Chart2.setData(data(country2Name));
@@ -442,7 +507,7 @@ public class Main extends Application{
         //StackPane layout2 = new StackPane();
         layout2.setPadding(new Insets(20,20,20,20));
         //layout2.getChildren().addAll(choiceBox1, but, choiceBox2, butt, lineChartApp(), buttonScene1);
-        layout2.getChildren().addAll( lineChartApp(), buttonScene1);
+        layout2.getChildren().addAll(box1Graph2,box2Graph2,box3Graph2,box4Graph2,  buttonPie, scatterChartApp(), buttonScene1);
         //layout2.getChildren().addAll(box1Graph2, box2Graph2, box3Graph2, box4Graph2, buttonPie, pieChartApp(), buttonScene1);
         scene2 = new Scene(layout2, 1920, 1080);         
         
