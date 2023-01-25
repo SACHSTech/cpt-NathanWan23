@@ -1,4 +1,6 @@
 package cpt;
+
+//Imports
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,46 +8,26 @@ import java.io.IOException;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Data collection from csv file and methods to return specific parts of the data
+ * @author: N. Wan
+ * 
+ */
 public class DataCollection{
     
     private static ArrayList <Country> countryList = new ArrayList <Country>();
-    
-    //static StringTokenizer st;
-    
-    public static void main(String[] args) throws IOException{
-    
-        DataCollection DataCollection = new DataCollection();
-         
-        /*for(int i = 0; i<countryList.size();i++){
-            System.out.println(countryList.get(i).getName());
-            System.out.println(countryList.get(i).getYear());
-            System.out.println(countryList.get(i).getAlcConsumption());
-        }*/
 
-        ArrayList <Double> Lis = new ArrayList <Double>();
-        Lis = DataCollection.countryData("Canada");
-
-        for(int i =0;i<Lis.size();i++){
-            System.out.println(Lis.get(i));
-        }
-
-        ArrayList <String> List = new ArrayList <String>();
-        List = DataCollection.countryName();
-
-        for(int i = 0; i<List.size();i++){
-            System.out.println(List.get(i));
-        } 
-
-        
-
-    }
-
+    /**
+    * Taking data from csv file and putting into an array
+    */
     public DataCollection() throws IOException{
+
+        //Read it 
         BufferedReader Br = new BufferedReader(new FileReader("src\\total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv"));
         String str = Br.readLine();
 
+        //Put everything into the array
         while(str != null) {
-            
             String[] holder = str.split(",");
             Country Country = new Country(holder[0], Integer.parseInt(holder[2]), Double.parseDouble(holder[3]));
             countryList.add(Country);
@@ -54,43 +36,11 @@ public class DataCollection{
         Br.close();
     }
 
-    /*public void addCountry() throws IOException{
-        BufferedReader Br = new BufferedReader(new FileReader("total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv"));
-        //StringTokenizer st;
-        String str = Br.readLine();
-        //String[] holder;
-
-        while(str != null) {
-            
-            String[] holder = str.split(",");
-            Country Country = new Country(holder[0], Integer.parseInt(holder[2]), Double.parseDouble(holder[3]));
-            countryList.add(Country);
-            str = Br.readLine();
-        }
-
-        System.out.println(countryList);
-        Br.close();
-
-    }*/
-
-    /*public ArrayList<Country> deleteCountry(ArrayList<Country> country){
-
-        ArrayList <Country> customList = new ArrayList <Country>();
-        int counter = country.size();
-        customList = countryList; 
-
-        while(country.size() > 0){
-            if(country.get(0) == customList.get(counter)){
-                customList.remove(counter);
-                counter--;
-                country.remove(0);   
-            } else counter++;
-        }
-        
-        return customList;
-        
-    } */
-
+    /**
+    * A method that takes in a year and returns all data with that year
+    * @param year takes in the year that wants to be shown all the data
+    * @return ArrarList<Country> customList a list with only data from that year
+    */
     public ArrayList<Country> yearlyData(int year){
 
         ArrayList <Country> customList = new ArrayList <Country>();
@@ -103,6 +53,10 @@ public class DataCollection{
         
     }
 
+    /**
+    * A method that returns all country names
+    * @return ArrarList<String> customList a list with only country names
+    */
     public ArrayList<String> countryName(){
         
         ArrayList <String> customList = new ArrayList <String>();
@@ -115,6 +69,11 @@ public class DataCollection{
 
     }
 
+    /**
+    * A method that takes in a country and returns all data associated with that data
+    * @param country the country
+    * @return ArrarList<Double> customList a list with only data from that country
+    */
     public ArrayList<Double> countryData(String country){
 
         ArrayList <Double> customList = new ArrayList <Double>();
@@ -128,25 +87,6 @@ public class DataCollection{
         }
         return customList;
         
-    }
-
-    public static ArrayList<String> hi(){
-        ArrayList <String> customList = new ArrayList <String>();
-        String lastCountry = countryList.get(0).getName(); 
-        //boolean done = true;
-        int i = 1, counter = 0;
-        while(i<countryList.size()){
-            if(countryList.get(i).getName().equals(lastCountry)){
-                counter++;
-            } 
-            else {
-                if(counter < 4) customList.add(countryList.get(i-1).getName());
-                lastCountry = countryList.get(i).getName();
-                counter = 0;
-            }
-            i++;
-        }
-        return customList;
     }
 
 }
