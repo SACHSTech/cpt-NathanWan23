@@ -74,6 +74,8 @@ public class Main extends Application{
     private ArrayList<Country> country1 = new ArrayList<Country>();
     private ArrayList<Country> country2 = new ArrayList<Country>();
 
+    ObservableList<XYChart.Series<Double,Double>> lineChartData = FXCollections.observableArrayList();
+
     private ArrayList<Double> countryData1 = new ArrayList<Double>();
     private ArrayList<Double> countryData2 = new ArrayList<Double>();
     private String country1Name = "Canada", country2Name = "North Korea";
@@ -150,15 +152,17 @@ public class Main extends Application{
     }*/
 
     public Parent pieChartApp() throws IOException {
-        pieChart = new PieChart(generateData(2010));
+        pieChart = new PieChart(generateData(year));
         pieChart.setClockwise(false);
+        pieChart.setPrefHeight(980);
+        pieChart.setPrefWidth(1800);
         return pieChart;
     }
 
-    /*public Parent lineChartApp() throws IOException {
+    public Parent lineChartApp() throws IOException {
 
         DataCollection dataCollection = new DataCollection();
-        //ArrayList<String> listCountryName = dataCollection.countryName();
+        ArrayList<String> listCountryName = dataCollection.countryName();
 
 
         //countryData1 = dataCollection.countryData(country1.get(0).getName());
@@ -173,11 +177,11 @@ public class Main extends Application{
         yAxis2 = new NumberAxis("Years", 2000, 2020, 1);
         //ObservableList<XYChart.Series<Double,Double>> lineChartData =
 
-        ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
-        ObservableList<XYChart.Data> seriesData2 = FXCollections.observableArrayList();
-        ObservableList<XYChart.Series<Double,Double>> lineChartData = FXCollections.observableArrayList();
+        //ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
+        //ObservableList<XYChart.Data> seriesData2 = FXCollections.observableArrayList();
+        //ObservableList<XYChart.Series<Double,Double>> lineChartData = FXCollections.observableArrayList();
         
-        for(int j = 0; j < 8; j+=2){
+        /*for(int j = 0; j < 8; j+=2){
 
             seriesData1.add( new XYChart.Data<>(countryData1.get(j+1), countryData1.get(j)));
             seriesData2.add( new XYChart.Data<>(countryData2.get(j+1), countryData2.get(j)));
@@ -188,12 +192,12 @@ public class Main extends Application{
         series1Chart2.setName(country1Name);
         series2Chart2.setName(country2Name);
         lineChartData.add(series1Chart2);
-        lineChartData.add(series2Chart2);
+        lineChartData.add(series2Chart2);*/
 
-        /*for(int i = 0; i< listCountryName.size();i++){
+        for(int i = 0; i< listCountryName.size();i++){
             ObservableList<XYChart.Data> seriesData = FXCollections.observableArrayList();
 
-            countryData = dataCollection.countryData(listCountryName.get(i));
+            ArrayList<Double> countryData = dataCollection.countryData(listCountryName.get(i));
 
             for(int j = 0; j < 8; j+=2){
 
@@ -204,8 +208,8 @@ public class Main extends Application{
             XYChart.Series series = new XYChart.Series();
             series.setData(seriesData);
             series.setName(listCountryName.get(i));
-            lineChartData.add(series);
-        }*/
+            //lineChartData.add(series);
+        }
 
         ///////////
 
@@ -273,9 +277,9 @@ public class Main extends Application{
 
         lineChartData.add(series1);*/
             
-        //chart2 = new LineChart(xAxis2, yAxis2,lineChartData);
-        //return chart2;
-    //}
+        chart2 = new LineChart(xAxis2, yAxis2,lineChartData);
+        return chart2;
+    }
 
     private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
@@ -289,17 +293,27 @@ public class Main extends Application{
         else chart.getData().remove(series4);
     }
 
+    private void handlePieOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
+
+        if(box1.isSelected()){
+            year = 2000;
+        } 
+        if(box2.isSelected()) year = 2010;
+        if(box3.isSelected()) year = 2015;
+        if(box4.isSelected()) year = 2018;
+    }
+
  
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        /*DataCollection dataCollection = new DataCollection();
+        DataCollection dataCollection = new DataCollection();
         ArrayList<String> listCountryNames = dataCollection.countryName();
 
         ChoiceBox<String> choiceBox1 = new ChoiceBox<String>();
         ChoiceBox<String> choiceBox2 = new ChoiceBox<String>();
         Button but = new Button("Compare"); 
-        Button butt = new Button("Compare.");*/
+        Button butt = new Button("Compare.");
 
         window = primaryStage;
         
@@ -326,16 +340,16 @@ public class Main extends Application{
         scene1 = new Scene(layout1, 600, 600);
 
         
-        /*for(int i = 0; i<listCountryNames.size(); i++){
+        for(int i = 0; i<listCountryNames.size(); i++){
             choiceBox1.getItems().add(listCountryNames.get(i));
             choiceBox2.getItems().add(listCountryNames.get(i));
-        }*/
-        //choiceBox1.setValue("Canda");
-        //choiceBox2.setValue("North Korea");
+        }
+        choiceBox1.setValue("Canda");
+        choiceBox2.setValue("North Korea");
 
         //but.setOnAction(e-> getChoice1(choiceBox1));
         //butt.setOnAction(e-> getChoice2(choiceBox2));
-/* 
+
         choiceBox1.setValue("Canada");
         choiceBox2.setValue("North Korea");
 
@@ -346,6 +360,7 @@ public class Main extends Application{
             country1Name = String.valueOf(choiceBox1.getValue());
             //chart2.getData().remove(series1Chart2);
             countryData1 = dataCollection.countryData(String.valueOf(choiceBox1.getValue()));
+            lineChartData.add(series);
             //chart2.getData().add(series1Chart2);
             //series1Chart2.setName(country1Name);
         });
@@ -368,15 +383,23 @@ public class Main extends Application{
         //series1Chart2.setData(data(country1Name));
         //series2Chart2.setData(data(country2Name));
 
-        */
+        
+        CheckBox box1Graph2 = new CheckBox("2000");
+        CheckBox box2Graph2 = new CheckBox("2010");
+        CheckBox box3Graph2 = new CheckBox("2015");
+        CheckBox box4Graph2 = new CheckBox("2018");
+
+        Button buttonPie = new Button("Enter");
+        buttonPie.setOnAction(e -> handlePieOptions(box1Graph2,box2Graph2,box3Graph2,box4Graph2));
 
         //Layout 2
         VBox layout2 = new VBox(10);
         //StackPane layout2 = new StackPane();
         layout2.setPadding(new Insets(20,20,20,20));
-        layout2.getChildren().addAll(choiceBox1, but, choiceBox2, butt, lineChartApp(), buttonScene1);
-        //layout2.getChildren().addAll(pieChartApp(), buttonScene1);
-        scene2 = new Scene(layout2, 600, 600);         
+        //layout2.getChildren().addAll(choiceBox1, but, choiceBox2, butt, lineChartApp(), buttonScene1);
+        layout2.getChildren().addAll( lineChartApp(), buttonScene1);
+        //layout2.getChildren().addAll(box1Graph2, box2Graph2, box3Graph2, box4Graph2, buttonPie, pieChartApp(), buttonScene1);
+        scene2 = new Scene(layout2, 1920, 1080);         
         
         window.setScene(scene1);
         window.show();
