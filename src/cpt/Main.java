@@ -24,6 +24,9 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.input.MouseEvent;
 
+//Imports for Scatter Chart
+import javafx.scene.chart.ScatterChart;
+
 //Imports for button
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Button;
@@ -49,24 +52,33 @@ public class Main extends Application{
     private CategoryAxis yAxis;
 
     //Line chart variables
-    private LineChart<Double, Double> chart2;
-    private NumberAxis xAxis2;
-    private NumberAxis yAxis2;
+    //private LineChart<Double, Double> chart2;
+    //private NumberAxis xAxis2;
+    //private NumberAxis yAxis2;
 
     //Pie chart variables
     private ObservableList<Data> dataChart2;
     private PieChart pieChart;
     private int year = 2018;
 
+    //Scatter chart variables
+    private ScatterChart scatterChart;
+    private NumberAxis xAxisScatter;
+    private NumberAxis yAxisScatter;
+
     private XYChart.Series series1Chart2 = new XYChart.Series();
     private XYChart.Series series2Chart2 = new XYChart.Series();
+
+    private XYChart.Series<Number, String> series1Scatter = new XYChart.Series<>();
+    private XYChart.Series<Number, String> series2Scatter = new XYChart.Series<>();
+    private XYChart.Series<Number, String> series3Scatter = new XYChart.Series<>();
+    private XYChart.Series<Number, String> series4Scatter = new XYChart.Series<>();
 
     //Bar chart series
     private XYChart.Series<Number, String> series1 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series2 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series3 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series4 = new XYChart.Series<>();
-
 
     //Line chart series
     private ObservableList<XYChart.Data> seriesData1 = FXCollections.observableArrayList();
@@ -82,15 +94,15 @@ public class Main extends Application{
 
     public Parent horizontalBarChartApp() throws IOException {
 
-        DataCollection DataCollection = new DataCollection();
+        DataCollection dataCollection = new DataCollection();
         ArrayList<String> listCountryName = new ArrayList<String>();
         
-        ArrayList<Country> year1 = DataCollection.yearlyData(2000);
-        ArrayList<Country> year2 = DataCollection.yearlyData(2010);
-        ArrayList<Country> year3 = DataCollection.yearlyData(2015);
-        ArrayList<Country> year4 = DataCollection.yearlyData(2018);
+        ArrayList<Country> year1 = dataCollection.yearlyData(2000);
+        ArrayList<Country> year2 = dataCollection.yearlyData(2010);
+        ArrayList<Country> year3 = dataCollection.yearlyData(2015);
+        ArrayList<Country> year4 = dataCollection.yearlyData(2018);
 
-        listCountryName = DataCollection.countryName();
+        listCountryName = dataCollection.countryName();
 
         FXCollections.<String>observableArrayList(listCountryName);
         xAxis = new NumberAxis();
@@ -142,14 +154,47 @@ public class Main extends Application{
         }
         return data;
     }
-    /*public static ObservableList<PieChart.Data> generateData() {
-        return FXCollections.observableArrayList(
-                new PieChart.Data("Sun", 20),
-                new PieChart.Data("IBM", 12),
-                new PieChart.Data("HP", 25),
-                new PieChart.Data("Dell", 22),
-                new PieChart.Data("Apple", 30));
-    }*/
+    
+    public Parent scatterChartApp() throws IOException{ 
+
+        DataCollection dataCollection = new DataCollection();
+
+        ArrayList<Country> year1 = dataCollection.yearlyData(2000);
+        ArrayList<Country> year2 = dataCollection.yearlyData(2010);
+        ArrayList<Country> year3 = dataCollection.yearlyData(2015);
+        ArrayList<Country> year4 = dataCollection.yearlyData(2018);
+
+        ObservableList<XYChart.Series<String,Double>> lineChartData = FXCollections.observableArrayList();
+
+        xAxisScatter = new CategoryAxis();
+        yAxisScatter = new NumberAxis("Total Alcohol Consumption per Capita (Liters of Pure Alcohol, 15+ age)", 0.0d, 20.0d, 1.0d);
+        
+        series1Scatter.setName("2000");
+        for(int i = 0; i<year1.size();i++){
+            series1Scatter.getData().add(
+            new XYChart.Data<String, Number>(year1.get(i).getName(), year1.get(i).getAlcConsumption()));                
+        }
+
+        series2Scatter.setName("2010");
+        for(int i = 0; i<year2.size();i++){
+            series2Scatter.getData().add( new XYChart.Data<String, Number>(year2.get(i).getName(),year2.get(i).getAlcConsumption()));     
+        }
+
+        series3Scatter.setName("2015");
+        for(int i = 0; i<year3.size();i++){
+            series3Scatter.getData().add(
+            new XYChart.Data<String, Number>(year3.get(i).getName(),year3.get(i).getAlcConsumption()));          
+        }
+    
+        series4Scatter.setName("2018");
+        for(int i = 0; i<year4.size();i++){
+            series4Scatter.getData().add(
+            new XYChart.Data<String, Number>(year4.get(i).getName(),year4.get(i).getAlcConsumption()));
+        }
+
+    scatterChart = new ScatterChart(xAxis, yAxis);
+    return scatterChart;
+    }
 
     public Parent pieChartApp() throws IOException {
         pieChart = new PieChart(generateData(year));
@@ -159,7 +204,7 @@ public class Main extends Application{
         return pieChart;
     }
 
-    public Parent lineChartApp() throws IOException {
+    /*public Parent lineChartApp() throws IOException {
 
         DataCollection dataCollection = new DataCollection();
         ArrayList<String> listCountryName = dataCollection.countryName();
@@ -194,7 +239,7 @@ public class Main extends Application{
         lineChartData.add(series1Chart2);
         lineChartData.add(series2Chart2);*/
 
-        for(int i = 0; i< listCountryName.size();i++){
+        /*for(int i = 0; i< listCountryName.size();i++){
             ObservableList<XYChart.Data> seriesData = FXCollections.observableArrayList();
 
             ArrayList<Double> countryData = dataCollection.countryData(listCountryName.get(i));
@@ -209,7 +254,7 @@ public class Main extends Application{
             series.setData(seriesData);
             series.setName(listCountryName.get(i));
             //lineChartData.add(series);
-        }
+        }*/
 
         ///////////
 
@@ -277,9 +322,9 @@ public class Main extends Application{
 
         lineChartData.add(series1);*/
             
-        chart2 = new LineChart(xAxis2, yAxis2,lineChartData);
-        return chart2;
-    }
+        //chart2 = new LineChart(xAxis2, yAxis2,lineChartData);
+        //return chart2;
+    //}
 
     private void handleOptions(CheckBox box1, CheckBox box2, CheckBox box3, CheckBox box4){
 
