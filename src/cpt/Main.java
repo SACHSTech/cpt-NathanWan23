@@ -62,7 +62,7 @@ public class Main extends Application{
     private XYChart.Series<Number, String> series3 = new XYChart.Series<>();
     private XYChart.Series<Number, String> series4 = new XYChart.Series<>();
 
-    //Line chart options to help stop double data
+    //scatter chart options to help stop double data
     private boolean box1Graph2Option, box2Graph2Option, box3Graph2Option, box4Graph2Option;
 
     /**
@@ -123,7 +123,7 @@ public class Main extends Application{
     }
 
     /**
-     * Makes a scatteer chart with data 
+     * Makes a scatter chart with data 
      * @return Returns scatter chart 
      */
     public Parent scatterChartApp() throws IOException{ 
@@ -279,7 +279,7 @@ public class Main extends Application{
         //Create buttons to switch scenes
         Button buttonScene1 = new Button("Horizontal Bar Chart");
         buttonScene1.setOnAction(e -> window.setScene(scene1));
-        Button buttonScene2 = new Button("Line Chart");
+        Button buttonScene2 = new Button("Scatter Chart");
         buttonScene2.setOnAction(e -> window.setScene(scene2));
 
         //Layout 1
