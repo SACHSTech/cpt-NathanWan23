@@ -1,5 +1,8 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9701345&assignment_repo_type=AssignmentRepo)
-# ICS4U CPT (Edit this)
+
+I am using [the average alcohol consumption per capita (person) in a country](https://ourworldindata.org/grapher/total-alcohol-consumption-per-capita-litres-of-pure-alcohol?tab=chart) as my data set. This data set shows the amount of pure alcohol people over the age of 15 in a given country consume on average in a given year. The reason why I selected this data is because alcohol consumption at a high level is a serious danger not only to the person drinking, but also to those around. Alcohol makes people more impuslive and violent. It is almost a given that when a lot of people are drunk there is bound to be a fight breaking out. Drinking also causing impared driving which has taken the lives of many innocent individuals. These are just some consequences for those around, alcohol consumption at a high level, is proven to cause kidney faliure. Kidney faliure is exteremely serious as the kidney is a vital organ in the human body. Without them, we die. I hope to shed some light on this data to show that this is a problem. 
+
+[Demo video here](https://drive.google.com/file/d/12p3mhTinDBb7LIDtvHipMAYD05Ck1cIb/view?usp=share_link)
 
 * Place your project README details here
 * Check the [VS Code, Java, and JavaFX Install and Set Up](https://docs.google.com/document/d/1s5oTmY8A8TDZu303p_DaH6CEAcC9xL8-aNX-pAxCcps/edit?usp=sharing) doc for set up and getting started instructions.
